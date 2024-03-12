@@ -1,4 +1,5 @@
 ﻿using System;
+using UserManagement1.Services;
 
 namespace UserManagement
 {
@@ -6,7 +7,9 @@ namespace UserManagement
 	{
 		static void Main(string[] args)
 		{
+			
 			string filePath = "C:\\Users\\HP Victus\\Desktop\\Projects\\PCLesson\\UserManagement1\\UserManagement1\\Storage.txt";
+            UserManagementService userService = new UserManagementService(filePath);
             Console.WriteLine("Welcome to the User registration Console App!");
 			while (true)
 			{
@@ -21,10 +24,10 @@ namespace UserManagement
 				switch (choice) 
 				{
 					case "1": 	
-						AddCerdentials(filePath);
+						userService.AddCredentials(filePath);
 						break;
 					case "2": 
-						ShowAllCredentials(filePath); 
+						userService.ShowAllCredentials(filePath); 
 						break;
 					case "3":
                         Console.WriteLine("Thank you for using our app!");
@@ -35,51 +38,5 @@ namespace UserManagement
                 }
 			}
         }
-
-		static void AddCerdentials(string filePath)
-		{
-            Console.WriteLine("\n Adding Credentials: ");
-			Console.Write("Enter your username: ");
-			string userName = Console.ReadLine();
-			Console.Write("Enter your password: ");
-			string password = Console.ReadLine();
-
-            try
-			{
-				using (StreamWriter writer = new StreamWriter(filePath, true))
-				{
-					writer.Write($"Username: {userName} Password: {password}");
-					writer.WriteLine();
-				}
-				Console.WriteLine("Your username and password are saved");
-			}
-			catch (Exception)
-			{
-
-                Console.WriteLine($"An error occured while saving");
-            }
-		}
-
-		static void ShowAllCredentials(string filePath)
-		{
-            Console.WriteLine("\n All Credentials: ");
-			try
-			{
-				using (StreamReader reader = new StreamReader(filePath))
-				{
-					string line;
-					while((line = reader.ReadLine()) != null)
-					{
-						Console.WriteLine(line);
-					}
-				}
-			}
-			catch (Exception)
-			{
-
-                Console.WriteLine("Error occured while reading Credentials.");
-            }
-        }
-
     }
 }
