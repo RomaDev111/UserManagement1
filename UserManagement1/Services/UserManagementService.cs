@@ -1,8 +1,7 @@
-﻿using UserManagement1.Models;
-
+﻿
 namespace UserManagement1.Services
 {
-    public class UserManagementService
+    public class UserManagementService : IUserManagementService
     {
         private string _filePath;
 
@@ -10,7 +9,7 @@ namespace UserManagement1.Services
         {
             _filePath = filePath;
         }
-        public void AddCredentials(string filePath)
+        public void AddCredentials()
         {
             Console.WriteLine("\n Adding Credentials: ");
             Console.Write("Enter your username: ");
@@ -27,14 +26,12 @@ namespace UserManagement1.Services
             {
                 Console.WriteLine("Password must be at least 8 characters long.");
             }
-            User user = new User();
-            user.Username = username;
-            user.Password = password;
+            
             try
             {
-                using (StreamWriter writer = new StreamWriter(filePath, true))
+                using (StreamWriter writer = new StreamWriter(_filePath, true))
                 {
-                    writer.Write($"Username: {user.Username} Password: {user.Password}");
+                    writer.Write($"Username: {username} Password: {password}");
                     writer.WriteLine();
                 }
                 Console.WriteLine("Your username and password are saved");
@@ -46,12 +43,12 @@ namespace UserManagement1.Services
             }
         }
 
-        public void ShowAllCredentials(string filePath)
+        public void ShowAllCredentials()
         {
             Console.WriteLine("\n All Credentials: ");
             try
             {
-                using (StreamReader reader = new StreamReader(filePath))
+                using (StreamReader reader = new StreamReader(_filePath))
                 {
                     string line;
                     while ((line = reader.ReadLine()) != null)
@@ -66,5 +63,6 @@ namespace UserManagement1.Services
                 Console.WriteLine("Error occured while reading Credentials.");
             }
         }
+
     }
 }

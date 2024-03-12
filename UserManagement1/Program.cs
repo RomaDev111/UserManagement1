@@ -9,7 +9,7 @@ namespace UserManagement
 		{
 			
 			string filePath = "C:\\Users\\HP Victus\\Desktop\\Projects\\PCLesson\\UserManagement1\\UserManagement1\\Storage.txt";
-            UserManagementService userService = new UserManagementService(filePath);
+            IUserManagementService userService = new UserManagementService(filePath);
             Console.WriteLine("Welcome to the User registration Console App!");
 			while (true)
 			{
@@ -24,10 +24,10 @@ namespace UserManagement
 				switch (choice) 
 				{
 					case "1": 	
-						userService.AddCredentials(filePath);
+						userService.AddCredentials();
 						break;
 					case "2": 
-						userService.ShowAllCredentials(filePath); 
+						userService.ShowAllCredentials(); 
 						break;
 					case "3":
                         Console.WriteLine("Thank you for using our app!");
